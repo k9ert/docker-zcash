@@ -1,62 +1,36 @@
 # docker-zcash
 
-Docker image for `zcash`. Currently for testnet only. Based on https://github.com/marsmensch/docker-zcash with the following changes:
+Docker image for `zcash`. Currently for testnet only. Based on [marsmensch/docker-zcash](https://github.com/marsmensch/docker-zcash) with the following changes:
 
 * uses `debian:latest` as base image
-* creates rpc password based on `/udev/random`
+* exposes `/root/.zcash` as a volume
+* only creates `/root/.zcash/zcash.conf` if it doesn't exist
 
-### Build and Run
-
-* Clone this repo
-* `make build`
-* `make run`
-
-### Run Interactively
-
-Start the container:
+#### Build
 
 ```bash
-$ docker run -it --entrypoint=/bin/bash docker-zcash
+$ git clone https://github.com/ralphtheninja/docker-zcash && cd docker-zcash
+$ docker build -t zcash .
 ```
 
-Run the zcashd daemon:
+#### Run the daemon
 
 ```bash
-root@09b7b2c0cf0f:/# zcashd -daemon
+$ docker run -d --name zcash -v ~/.zcash:/root/.zcash zcash
 ```
 
-Check the current state:
+#### Run commands
 
 ```bash
-root@09b7b2c0cf0f:/# zcash-cli getinfo
-{
-    "version" : 110200,
-    "protocolversion" : 170002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 0,
-    "proxy" : "",
-    "difficulty" : 1.00000000,
-    "testnet" : true,
-    "keypoololdest" : 1471726281,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00005000,
-    "errors" : "This is a pre-release test build - use at your own risk - do not use for mining or merchant applications"
-}
+$ docker exec -it zcash zcash-cli getinfo
+$ docker exec -it zcash zcash-cli zcrawkeygen
 ```
 
-Generate an address:
+#### Stop/restart the daemon
 
 ```bash
-root@09b7b2c0cf0f:/# zcash-cli zcrawkeygen
-{
-    "zcaddress" : "tnt6Ss7SLEXuggXxwJpygDMiGeJNY2WHGAPM1pUMig5xQ5vCXncrp8xeQuumeBWYJtWTamAx75LnEGrCUjQU3VnG9H9KwsB",
-    "zcsecretkey" : "TKWVj9nQiRA3oLk7QS4L9Z2jh4TzhBFaenK11bafEF8tXRdggQBc",
-    "zcviewingkey" : "58a74c9fcf3c884fdcb31e174447a70b3e54329a9cfacf6a3d9ca92e5129b564"
-}
+$ docker stop zcash
+$ docker start zcash
 ```
 
 ### Links
