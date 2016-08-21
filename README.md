@@ -23,6 +23,9 @@ $ docker run -d --name zcash -v ~/.zcash:/root/.zcash zcash
 
 ```bash
 $ docker exec -it zcash zcash-cli getinfo
+$ docker exec -it zcash zcash-cli getnewaddress
+$ docker exec -it zcash zcash-cli getpeerinfo
+$ docker exec -it zcash zcash-cli getblockcount
 $ docker exec -it zcash zcash-cli zcrawkeygen
 ```
 
