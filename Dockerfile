@@ -9,7 +9,7 @@ VOLUME /root/.zcash
 RUN apt-get update && apt-get -y upgrade && \
     apt-get -y install build-essential pkg-config libgtest-dev libc6-dev m4 \
     g++-multilib autoconf libtool ncurses-dev unzip git python \
-    zlib1g-dev wget bsdmainutils
+    zlib1g-dev wget bsdmainutils automake
 
 RUN echo "check_certificate = off" > /root/.wgetrc && mkdir -p /opt/code/; cd /opt/code; \
     git clone ${GIT_URL} zcash && cd zcash && git checkout ${ZCASH_VERSION} && \
