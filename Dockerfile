@@ -2,7 +2,7 @@ FROM debian:latest
 MAINTAINER Lars-Magnus Skog <ralphtheninja@riseup.net>
 
 ENV GIT_URL https://github.com/zcash/zcash.git
-ENV ZCASH_VERSION zc.v0.11.2.z8
+ENV ZCASH_VERSION v1.0.0
 
 VOLUME /root/.zcash
 
