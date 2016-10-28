@@ -11,6 +11,7 @@ echo "generate ${ZCASH_CONF}"
 echo "addnode=mainnet.z.cash" > ${ZCASH_CONF}
 echo "rpcuser=username" >> ${ZCASH_CONF}
 echo "rpcpassword=$(head -c 32 /dev/urandom | base64)" >> ${ZCASH_CONF}
+echo "gen=1" >> ${ZCASH_CONF}
 
 /usr/local/bin/zcashd
 exit $?
